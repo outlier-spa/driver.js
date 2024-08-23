@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -164,6 +164,38 @@
 
       <h2>Highlight Feature</h2>
       <p>given below are the examples of simple `highlight`</p>
+      <div style="display: flex; align-items: center; justify-content: center">
+        <div
+          class="buttons"
+          style="display: flex; flex-direction: column; justify-content: center; align-items: center"
+        >
+          <button id="btn-left-start">LS</button>
+          <button id="btn-left-center">LC</button>
+          <button id="btn-left-end">LE</button>
+        </div>
+        <div>
+          <div class="buttons" style="display: flex; justify-content: center">
+            <button id="btn-top-start">TS</button>
+            <button id="btn-top-center">TC</button>
+            <button id="btn-top-end">TE</button>
+          </div>
+
+          <div id="layer" style="width: 300px; height: 100px; background-color: yellowgreen"></div>
+          <div class="buttons" style="display: flex; justify-content: center">
+            <button id="btn-bottom-start">BS</button>
+            <button id="btn-bottom-center">BC</button>
+            <button id="btn-bottom-end">BE</button>
+          </div>
+        </div>
+        <div
+          class="buttons"
+          style="display: flex; flex-direction: column; justify-content: center; align-items: center"
+        >
+          <button id="btn-right-start">RS</button>
+          <button id="btn-right-center">RC</button>
+          <button id="btn-right-end">RE</button>
+        </div>
+      </div>
       <div class="buttons">
         <button id="highlight-btn">Animated Highlight</button>
         <button id="simple-highlight-btn">Simple Highlight</button>
@@ -362,7 +394,67 @@ npm install driver.js</pre
           },
         },
         {
-          element: ".page-header h1",
+          element: "h2",
+          popover: {
+            title: "No Stacking Issues",
+            description:
+              "Unlike the older version, new version doesn't work with z-indexes so no more positional issues.",
+            side: "top",
+            align: "start",
+          },
+        },
+        {
+          element: "h2",
+          popover: {
+            title: "No Stacking Issues",
+            description:
+              "Unlike the older version, new version doesn't work with z-indexes so no more positional issues.",
+            side: "top",
+            align: "center",
+          },
+        },
+        {
+          element: "h2",
+          popover: {
+            title: "No Stacking Issues",
+            description:
+              "Unlike the older version, new version doesn't work with z-indexes so no more positional issues.",
+            side: "top",
+            align: "end",
+          },
+        },
+        {
+          element: "h2",
+          popover: {
+            title: "No Stacking Issues",
+            description:
+              "Unlike the older version, new version doesn't work with z-indexes so no more positional issues.",
+            side: "right",
+            align: "start",
+          },
+        },
+        {
+          element: "h2",
+          popover: {
+            title: "No Stacking Issues",
+            description:
+              "Unlike the older version, new version doesn't work with z-indexes so no more positional issues.",
+            side: "right",
+            align: "center",
+          },
+        },
+        {
+          element: "h2",
+          popover: {
+            title: "No Stacking Issues",
+            description:
+              "Unlike the older version, new version doesn't work with z-indexes so no more positional issues.",
+            side: "right",
+            align: "end",
+          },
+        },
+        {
+          element: "h2",
           popover: {
             title: "No Stacking Issues",
             description:
@@ -388,7 +480,7 @@ npm install driver.js</pre
           },
         },
         {
-          element: '.buttons',
+          element: ".buttons",
           popover: {
             title: "Buttons",
             description: "Here are some buttons",
@@ -468,13 +560,13 @@ npm install driver.js</pre
           disableActiveInteraction: true,
           showProgress: true,
           progressText: "{{current}} of {{total}} done",
-          onPopoverRender: (popover) => {
-            popover.title.innerHTML = `${driverObj.getActiveIndex()} ${driverObj.hasNextStep() ? 'Yes' : 'No'} ${driverObj.hasPreviousStep() ? 'Yes' : 'No'}`
-            popover.description.innerHTML = `${driverObj.isFirstStep() ? 'Yes' : 'No'} ${driverObj.isLastStep() ? 'Yes' : 'No'}`
+          onPopoverRender: popover => {
+            popover.title.innerHTML = `${driverObj.getActiveIndex()} ${driverObj.hasNextStep() ? "Yes" : "No"} ${driverObj.hasPreviousStep() ? "Yes" : "No"}`;
+            popover.description.innerHTML = `${driverObj.isFirstStep() ? "Yes" : "No"} ${driverObj.isLastStep() ? "Yes" : "No"}`;
 
             console.log(driverObj.getActiveIndex());
             console.log(driverObj.getActiveStep());
-          }
+          },
         });
 
         driverObj.drive(4);
@@ -491,16 +583,16 @@ npm install driver.js</pre
           {
             element: "h1",
             popover: {
-              description: "This is a new description"
-            }
+              description: "This is a new description",
+            },
           },
           {
             element: "p",
             popover: {
-              description: "This is another new description"
-            }
-          }
-        ])
+              description: "This is another new description",
+            },
+          },
+        ]);
 
         driverObj.drive();
       });
@@ -517,16 +609,16 @@ npm install driver.js</pre
           {
             element: "h1",
             popover: {
-              description: "This is a new description"
-            }
+              description: "This is a new description",
+            },
           },
           {
             element: "p",
             popover: {
-              description: "This is another new description"
-            }
-          }
-        ])
+              description: "This is another new description",
+            },
+          },
+        ]);
 
         driverObj.drive();
       });
@@ -624,7 +716,7 @@ npm install driver.js</pre
       document.getElementById("basic-tour").addEventListener("click", () => {
         const driverObj = driver({
           showProgress: true,
-          showButtons: ["next", 'previous', 'close'],
+          showButtons: ["next", "previous", "close"],
           steps: basicTourSteps,
         });
 
@@ -835,10 +927,10 @@ npm install driver.js</pre
             driverObj.destroy();
           },
           steps: [
-            { popover: { title: "Some title", description: "Some description" }},
-            { popover: { title: "Another title", description: "Some description" }},
-            { popover: { title: "Yet another title", description: "Some description" }},
-          ]
+            { popover: { title: "Some title", description: "Some description" } },
+            { popover: { title: "Another title", description: "Some description" } },
+            { popover: { title: "Yet another title", description: "Some description" } },
+          ],
         });
 
         driverObj.drive();
@@ -856,10 +948,10 @@ npm install driver.js</pre
             });
           },
           steps: [
-            { popover: { title: "Some title", description: "Some description" }},
-            { popover: { title: "Another title", description: "Some description" }},
-            { popover: { title: "Yet another title", description: "Some description" }},
-          ]
+            { popover: { title: "Some title", description: "Some description" } },
+            { popover: { title: "Another title", description: "Some description" } },
+            { popover: { title: "Yet another title", description: "Some description" } },
+          ],
         });
 
         driverObj.drive();
@@ -924,6 +1016,35 @@ npm install driver.js</pre
             side: "bottom",
             align: "start",
           },
+        });
+      });
+
+      [
+        "btn-top-start",
+        "btn-top-center",
+        "btn-top-end",
+        "btn-right-start",
+        "btn-right-center",
+        "btn-right-end",
+        "btn-left-start",
+        "btn-left-center",
+        "btn-left-end",
+        "btn-bottom-start",
+        "btn-bottom-center",
+        "btn-bottom-end",
+      ].forEach(id => {
+        const side = id.split("-")[1];
+        const align = id.split("-")[2];
+        document.getElementById(id).addEventListener("click", () => {
+          driver({ animate: true }).highlight({
+            element: "#layer",
+            popover: {
+              title: ` ${side} ${align}`,
+              description: `This is the ${side} ${align}`,
+              align: align,
+              side: side,
+            },
+          });
         });
       });
 
@@ -1103,7 +1224,7 @@ npm install driver.js</pre
       document.getElementById("click-overlay-to-next").addEventListener("click", () => {
         const driverObj = driver({
           animate: true,
-          overlayClickBehavior: 'nextStep',
+          overlayClickBehavior: "nextStep",
           steps: basicTourSteps,
         });
 

@@ -145,7 +145,12 @@ function createOverlaySvg(stage: StageDefinition): SVGSVGElement {
   return svg;
 }
 
+function getZoomLevel() {
+  return parseFloat(window.getComputedStyle(document.getElementsByTagName("html")[0]).zoom) || 1;
+}
+
 function generateStageSvgPathString(stage: StageDefinition) {
+  const zoom = getZoomLevel();
   const windowX = window.innerWidth;
   const windowY = window.innerHeight;
 
@@ -161,10 +166,10 @@ function generateStageSvgPathString(stage: StageDefinition) {
   // no value below 0 allowed + round down
   const normalizedRadius = Math.floor(Math.max(limitedRadius, 0));
 
-  const highlightBoxX = stage.x - stagePadding + normalizedRadius;
-  const highlightBoxY = stage.y - stagePadding;
-  const highlightBoxWidth = stageWidth - normalizedRadius * 2;
-  const highlightBoxHeight = stageHeight - normalizedRadius * 2;
+  const highlightBoxX = (stage.x - stagePadding + normalizedRadius) * zoom;
+  const highlightBoxY = (stage.y - stagePadding) * zoom;
+  const highlightBoxWidth = (stageWidth - normalizedRadius * 2) * zoom;
+  const highlightBoxHeight = (stageHeight - normalizedRadius * 2) * zoom;
 
   return `M${windowX},0L0,0L0,${windowY}L${windowX},${windowY}L${windowX},0Z
     M${highlightBoxX},${highlightBoxY} h${highlightBoxWidth} a${normalizedRadius},${normalizedRadius} 0 0 1 ${normalizedRadius},${normalizedRadius} v${highlightBoxHeight} a${normalizedRadius},${normalizedRadius} 0 0 1 -${normalizedRadius},${normalizedRadius} h-${highlightBoxWidth} a${normalizedRadius},${normalizedRadius} 0 0 1 -${normalizedRadius},-${normalizedRadius} v-${highlightBoxHeight} a${normalizedRadius},${normalizedRadius} 0 0 1 ${normalizedRadius},-${normalizedRadius} z`;

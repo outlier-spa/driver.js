@@ -49,6 +49,10 @@ export type PopoverDOM = {
   footerButtons: HTMLElement;
 };
 
+function getZoomLevel() {
+  return parseFloat(window.getComputedStyle(document.getElementsByTagName("html")[0]).zoom) || 1;
+}
+
 export function hidePopover() {
   const popover = getState("popover");
   if (!popover) {
@@ -204,7 +208,7 @@ export function renderPopover(element: Element, step: DriveStep) {
       return (
         !popover?.description.contains(target) &&
         !popover?.title.contains(target) &&
-        typeof target.className === 'string' &&
+        typeof target.className === "string" &&
         target.className.includes("driver-popover")
       );
     }
@@ -347,12 +351,35 @@ function calculateLeftForTopBottom(
   return 0;
 }
 
-export function repositionPopover(element: Element, step: DriveStep) {
+const getPopoverArrowDimensions = () => {
   const popover = getState("popover");
   if (!popover) {
     return;
   }
 
+  return {
+    width: popover.arrow.clientWidth,
+    height: popover.arrow.clientHeight,
+  };
+};
+const gerElementDimensions = (element: Element): DOMRect => {
+  const elementDimensions = element.getBoundingClientRect();
+
+  return {
+    top: elementDimensions.top,
+    bottom: elementDimensions.bottom,
+    left: elementDimensions.left,
+    right: elementDimensions.right,
+    height: elementDimensions.height,
+    width: elementDimensions.width,
+  } as DOMRect;
+};
+
+export function repositionPopover(element: Element, step: DriveStep) {
+  const popover = getState("popover");
+  if (!popover) {
+    return;
+  }
   const { align = "start", side = "left" } = step?.popover || {};
 
   // Configure the popover positioning
@@ -361,19 +388,19 @@ export function repositionPopover(element: Element, step: DriveStep) {
   const popoverPadding = getConfig("stagePadding") || 0;
 
   const popoverDimensions = getPopoverDimensions()!;
-  const popoverArrowDimensions = popover.arrow.getBoundingClientRect();
-  const elementDimensions = element.getBoundingClientRect();
+  const popoverArrowDimensions = getPopoverArrowDimensions()!;
+  const elementDimensions = gerElementDimensions(element);
 
   const topValue = elementDimensions.top - popoverDimensions!.height;
   let isTopOptimal = topValue >= 0;
 
-  const bottomValue = window.innerHeight - (elementDimensions.bottom + popoverDimensions!.height);
+  const bottomValue = window.innerHeight - (elementDimensions.bottom + popoverDimensions!.height) * getZoomLevel();
   let isBottomOptimal = bottomValue >= 0;
 
   const leftValue = elementDimensions.left - popoverDimensions!.width;
   let isLeftOptimal = leftValue >= 0;
 
-  const rightValue = window.innerWidth - (elementDimensions.right + popoverDimensions!.width);
+  const rightValue = window.innerWidth - (elementDimensions.right + popoverDimensions!.width) * getZoomLevel();
   let isRightOptimal = rightValue >= 0;
 
   const noneOptimal = !isTopOptimal && !isBottomOptimal && !isLeftOptimal && !isRightOptimal;
@@ -436,7 +463,7 @@ export function repositionPopover(element: Element, step: DriveStep) {
       popoverArrowDimensions,
     });
 
-    popover.wrapper.style.right = `${rightToSet}px`;
+    popover.wrapper.style.right = `${rightToSet / getZoomLevel() - 10}px`;
     popover.wrapper.style.top = `${topToSet}px`;
     popover.wrapper.style.bottom = `auto`;
     popover.wrapper.style.left = "auto";
@@ -474,7 +501,7 @@ export function repositionPopover(element: Element, step: DriveStep) {
     });
 
     popover.wrapper.style.left = `${leftToSet}px`;
-    popover.wrapper.style.bottom = `${bottomToSet}px`;
+    popover.wrapper.style.bottom = `${bottomToSet / getZoomLevel()}px`;
     popover.wrapper.style.top = `auto`;
     popover.wrapper.style.right = "auto";
 
