@@ -623,6 +623,9 @@ function createPopover(): PopoverDOM {
   const wrapper = document.createElement("div");
   wrapper.classList.add("driver-popover");
 
+  const hightLight = document.createElement("div");
+  hightLight.classList.add("point-highlight");
+
   const arrow = document.createElement("div");
   arrow.classList.add("driver-popover-arrow");
 
@@ -670,6 +673,7 @@ function createPopover(): PopoverDOM {
   footer.appendChild(footerButtons);
 
   wrapper.appendChild(closeButton);
+  // arrow.appendChild(hightLight);
   wrapper.appendChild(arrow);
   wrapper.appendChild(title);
   wrapper.appendChild(description);
