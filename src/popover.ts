@@ -47,6 +47,7 @@ export type PopoverDOM = {
   nextButton: HTMLButtonElement;
   closeButton: HTMLButtonElement;
   footerButtons: HTMLElement;
+  pointerHightLight: HTMLElement;
 };
 
 function getZoomLevel() {
@@ -529,6 +530,7 @@ function renderPopoverArrow(alignment: Alignment, side: Side, element: Element) 
   const elementDimensions = element.getBoundingClientRect();
   const popoverDimensions = getPopoverDimensions()!;
   const popoverArrow = popover.arrow;
+  const popoverPointHighlight = popover.pointerHightLight;
 
   const popoverWidth = popoverDimensions.width;
   const windowWidth = window.innerWidth;
@@ -542,6 +544,7 @@ function renderPopoverArrow(alignment: Alignment, side: Side, element: Element) 
 
   // Remove all arrow classes
   popoverArrow.className = "driver-popover-arrow";
+  popoverPointHighlight.className = "driver-popover-point-highlight";
 
   let arrowSide = side;
   let arrowAlignment = alignment;
@@ -613,9 +616,12 @@ function renderPopoverArrow(alignment: Alignment, side: Side, element: Element) 
 
   if (!arrowSide) {
     popoverArrow.classList.add("driver-popover-arrow-none");
+    popoverPointHighlight.classList.add("driver-popover-point-highlight-none");
   } else {
     popoverArrow.classList.add(`driver-popover-arrow-side-${arrowSide}`);
     popoverArrow.classList.add(`driver-popover-arrow-align-${arrowAlignment}`);
+    popoverPointHighlight.classList.add(`driver-popover-point-highlight-side-${arrowSide}`);
+    popoverPointHighlight.classList.add(`driver-popover-point-highlight-align-${arrowAlignment}`);
   }
 }
 
@@ -623,8 +629,8 @@ function createPopover(): PopoverDOM {
   const wrapper = document.createElement("div");
   wrapper.classList.add("driver-popover");
 
-  const hightLight = document.createElement("div");
-  hightLight.classList.add("point-highlight");
+  const pointerHightLight = document.createElement("div");
+  pointerHightLight.classList.add("driver-popover-point-highlight");
 
   const arrow = document.createElement("div");
   arrow.classList.add("driver-popover-arrow");
@@ -673,13 +679,14 @@ function createPopover(): PopoverDOM {
   footer.appendChild(footerButtons);
 
   wrapper.appendChild(closeButton);
-  // arrow.appendChild(hightLight);
   wrapper.appendChild(arrow);
+  wrapper.appendChild(pointerHightLight);
   wrapper.appendChild(title);
   wrapper.appendChild(description);
   wrapper.appendChild(footer);
 
   return {
+    pointerHightLight,
     wrapper,
     arrow,
     title,

@@ -180,7 +180,20 @@
             <button id="btn-top-end">TE</button>
           </div>
 
-          <div id="layer" style="width: 300px; height: 100px; background-color: yellowgreen"></div>
+          <div
+            id="layer"
+            style="
+              width: 300px;
+              height: 100px;
+              background-color: yellowgreen;
+              position: relative;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+            "
+          >
+            <button id="btn-center-center">CC</button>
+          </div>
           <div class="buttons" style="display: flex; justify-content: center">
             <button id="btn-bottom-start">BS</button>
             <button id="btn-bottom-center">BC</button>
@@ -1032,6 +1045,7 @@ npm install driver.js</pre
         "btn-bottom-start",
         "btn-bottom-center",
         "btn-bottom-end",
+        "btn-center-center",
       ].forEach(id => {
         const side = id.split("-")[1];
         const align = id.split("-")[2];
