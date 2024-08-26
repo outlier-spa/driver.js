@@ -183,7 +183,6 @@
 	position: absolute;
 	border-radius: 50%;
 	border: 2px solid #fff;
-	transform: scale(0.5);
 }
 
 .driver-popover-point-highlight:before {
@@ -251,19 +250,19 @@
 
 /** Popover pointer highlight Sides **/
 .driver-popover-point-highlight-side-left {
-	left: calc(100% + 10px);
+	left: calc(100% + 16px);
 }
 
 .driver-popover-point-highlight-side-right {
-	right: calc(100% + 10px);
+	right: calc(100% + 16px);
 }
 
 .driver-popover-point-highlight-side-top {
-	top: calc(100% + 10px);
+	top: calc(100% + 16px);
 }
 
 .driver-popover-point-highlight-side-bottom {
-	bottom: calc(100% + 10px);
+	bottom: calc(100% + 16px);
 }
 
 .driver-popover-point-highlight-side-center {
