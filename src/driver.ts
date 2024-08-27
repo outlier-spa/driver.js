@@ -8,7 +8,7 @@ import { getState, resetState, setState } from "./state";
 import "./driver.css";
 
 export type DriveStep = {
-  element?: string | Element;
+  element?: string | Element | (() => Element | null);
   onHighlightStarted?: DriverHook;
   onHighlighted?: DriverHook;
   onDeselected?: DriverHook;
@@ -139,7 +139,13 @@ export function driver(options: Config = {}) {
 
     setState("isInitialized", true);
     document.body.classList.add("driver-active", getConfig("animate") ? "driver-fade" : "driver-simple");
+    if (!getConfig("overlayEnabled")) {
+      document.body.classList.add("driver-no-overlay");
+    }
 
+    if (!getConfig("allowScroll")) {
+      document.body.classList.add("driver-no-scroll");
+    }
     initEvents();
 
     listen("overlayClick", handleOverlayClick);

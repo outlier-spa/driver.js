@@ -50,9 +50,9 @@ export type PopoverDOM = {
   pointerHightLight: HTMLElement;
 };
 
-function getZoomLevel() {
-  return parseFloat(window.getComputedStyle(document.getElementsByTagName("html")[0]).zoom) || 1;
-}
+// function getZoomLevel() {
+//   return parseFloat(window.getComputedStyle(document.getElementsByTagName("html")[0]).zoom) || 1;
+// }
 
 export function hidePopover() {
   const popover = getState("popover");
@@ -385,7 +385,7 @@ export function repositionPopover(element: Element, step: DriveStep) {
     return;
   }
   const { align = "start", side = "left" } = step?.popover || {};
-
+  const zoom = getConfig("zoom") || 1;
   // Configure the popover positioning
   const requiredAlignment: Alignment = align;
   const requiredSide: Side = element.id === "driver-dummy-element" ? "over" : side;
@@ -398,13 +398,13 @@ export function repositionPopover(element: Element, step: DriveStep) {
   const topValue = elementDimensions.top - popoverDimensions!.height;
   let isTopOptimal = topValue >= 0;
 
-  const bottomValue = window.innerHeight - (elementDimensions.bottom + popoverDimensions!.height) * getZoomLevel();
+  const bottomValue = window.innerHeight - (elementDimensions.bottom + popoverDimensions!.height) * zoom;
   let isBottomOptimal = bottomValue >= 0;
 
   const leftValue = elementDimensions.left - popoverDimensions!.width;
   let isLeftOptimal = leftValue >= 0;
 
-  const rightValue = window.innerWidth - (elementDimensions.right + popoverDimensions!.width) * getZoomLevel();
+  const rightValue = window.innerWidth - (elementDimensions.right + popoverDimensions!.width) * zoom;
   let isRightOptimal = rightValue >= 0;
 
   const noneOptimal = !isTopOptimal && !isBottomOptimal && !isLeftOptimal && !isRightOptimal;
@@ -467,7 +467,7 @@ export function repositionPopover(element: Element, step: DriveStep) {
       popoverArrowDimensions,
     });
 
-    popover.wrapper.style.right = `${rightToSet / getZoomLevel() - 15}px`;
+    popover.wrapper.style.right = `${rightToSet / zoom - 15}px`;
     popover.wrapper.style.top = `${topToSet}px`;
     popover.wrapper.style.bottom = `auto`;
     popover.wrapper.style.left = "auto";
@@ -505,7 +505,7 @@ export function repositionPopover(element: Element, step: DriveStep) {
     });
 
     popover.wrapper.style.left = `${leftToSet}px`;
-    popover.wrapper.style.bottom = `${bottomToSet / getZoomLevel()}px`;
+    popover.wrapper.style.bottom = `${bottomToSet / zoom}px`;
     popover.wrapper.style.top = `auto`;
     popover.wrapper.style.right = "auto";
 
