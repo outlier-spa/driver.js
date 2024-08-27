@@ -200,7 +200,7 @@
               align-items: center;
             "
           >
-            <button id="btn-undefined-over">CC</button>
+            <button id="btn-over-undefined">CC</button>
           </div>
           <div class="buttons" style="display: flex; justify-content: center">
             <button id="btn-bottom-start">BS</button>
@@ -524,6 +524,7 @@ npm install driver.js</pre
       ];
 
       document.getElementById("non-animated-tour").addEventListener("click", () => {
+        const zoom = parseFloat(window.getComputedStyle(document.body.parentElement).getPropertyValue("zoom")) || 1;
         const driverObj = driver({
           zoom,
           animate: false,
@@ -537,6 +538,7 @@ npm install driver.js</pre
       });
 
       document.getElementById("confirm-exit-tour").addEventListener("click", () => {
+        const zoom = parseFloat(window.getComputedStyle(document.body.parentElement).getPropertyValue("zoom")) || 1;
         const driverObj = driver({
           zoom,
           animate: true,
@@ -556,12 +558,14 @@ npm install driver.js</pre
       });
 
       document.getElementById("progress-tour").addEventListener("click", () => {
+        const zoom = parseFloat(window.getComputedStyle(document.body.parentElement).getPropertyValue("zoom")) || 1;
         const driverObj = driver({ zoom, animate: true, steps: basicTourSteps, showProgress: true });
 
         driverObj.drive();
       });
 
       document.getElementById("progress-tour-template").addEventListener("click", () => {
+        const zoom = parseFloat(window.getComputedStyle(document.body.parentElement).getPropertyValue("zoom")) || 1;
         const driverObj = driver({
           zoom,
           animate: true,
@@ -574,6 +578,7 @@ npm install driver.js</pre
       });
 
       document.getElementById("api-test").addEventListener("click", () => {
+        const zoom = parseFloat(window.getComputedStyle(document.body.parentElement).getPropertyValue("zoom")) || 1;
         const driverObj = driver({
           zoom,
           animate: true,
@@ -594,6 +599,7 @@ npm install driver.js</pre
       });
 
       document.getElementById("reconfigure-steps").addEventListener("click", () => {
+        const zoom = parseFloat(window.getComputedStyle(document.body.parentElement).getPropertyValue("zoom")) || 1;
         const driverObj = driver({ zoom, animate: true, steps: basicTourSteps, showProgress: true });
 
         driverObj.setSteps([
@@ -615,6 +621,7 @@ npm install driver.js</pre
       });
 
       document.getElementById("disable-keyboard-control").addEventListener("click", () => {
+        const zoom = parseFloat(window.getComputedStyle(document.body.parentElement).getPropertyValue("zoom")) || 1;
         const driverObj = driver({
           zoom,
           animate: true,
@@ -642,6 +649,7 @@ npm install driver.js</pre
       });
 
       document.getElementById("async-tour").addEventListener("click", () => {
+        const zoom = parseFloat(window.getComputedStyle(document.body.parentElement).getPropertyValue("zoom")) || 1;
         const driverObj = driver({
           zoom,
           animate: true,
@@ -733,6 +741,7 @@ npm install driver.js</pre
       });
 
       document.getElementById("basic-tour").addEventListener("click", () => {
+        const zoom = parseFloat(window.getComputedStyle(document.body.parentElement).getPropertyValue("zoom")) || 1;
         const driverObj = driver({
           zoom,
           showProgress: true,
@@ -744,6 +753,7 @@ npm install driver.js</pre
       });
 
       document.getElementById("no-buttons").addEventListener("click", () => {
+        const zoom = parseFloat(window.getComputedStyle(document.body.parentElement).getPropertyValue("zoom")) || 1;
         const driverObj = driver({ zoom });
 
         driverObj.highlight({
@@ -757,6 +767,7 @@ npm install driver.js</pre
       });
 
       document.getElementById("buttons-from-popover").addEventListener("click", () => {
+        const zoom = parseFloat(window.getComputedStyle(document.body.parentElement).getPropertyValue("zoom")) || 1;
         const driverObj = driver();
 
         driverObj.highlight({
@@ -771,6 +782,7 @@ npm install driver.js</pre
       });
 
       document.getElementById("next-button").addEventListener("click", () => {
+        const zoom = parseFloat(window.getComputedStyle(document.body.parentElement).getPropertyValue("zoom")) || 1;
         const driverObj = driver();
 
         driverObj.highlight({
@@ -784,6 +796,7 @@ npm install driver.js</pre
       });
 
       document.getElementById("previous-button").addEventListener("click", () => {
+        const zoom = parseFloat(window.getComputedStyle(document.body.parentElement).getPropertyValue("zoom")) || 1;
         const driverObj = driver();
 
         driverObj.highlight({
@@ -797,6 +810,7 @@ npm install driver.js</pre
       });
 
       document.getElementById("next-prev-button").addEventListener("click", () => {
+        const zoom = parseFloat(window.getComputedStyle(document.body.parentElement).getPropertyValue("zoom")) || 1;
         const driverObj = driver();
 
         driverObj.highlight({
@@ -810,6 +824,7 @@ npm install driver.js</pre
       });
 
       document.getElementById("close-button").addEventListener("click", () => {
+        const zoom = parseFloat(window.getComputedStyle(document.body.parentElement).getPropertyValue("zoom")) || 1;
         const driverObj = driver();
 
         driverObj.highlight({
@@ -823,6 +838,7 @@ npm install driver.js</pre
       });
 
       document.getElementById("button-texts").addEventListener("click", () => {
+        const zoom = parseFloat(window.getComputedStyle(document.body.parentElement).getPropertyValue("zoom")) || 1;
         const driverObj = driver({ zoom, prevBtnText: "<——", nextBtnText: "——>" });
 
         driverObj.highlight({
@@ -839,6 +855,7 @@ npm install driver.js</pre
       });
 
       document.getElementById("popover-hook").addEventListener("click", () => {
+        const zoom = parseFloat(window.getComputedStyle(document.body.parentElement).getPropertyValue("zoom")) || 1;
         const driverObj = driver({
           zoom,
           onPopoverRender: popover => {
@@ -860,6 +877,7 @@ npm install driver.js</pre
       });
 
       document.getElementById("padding-change").addEventListener("click", () => {
+        const zoom = parseFloat(window.getComputedStyle(document.body.parentElement).getPropertyValue("zoom")) || 1;
         const driverObj = driver({ zoom, stagePadding: 0, popoverOffset: 20, stageRadius: 10 });
 
         driverObj.highlight({
@@ -877,6 +895,7 @@ npm install driver.js</pre
       });
 
       document.getElementById("custom-classes").addEventListener("click", () => {
+        const zoom = parseFloat(window.getComputedStyle(document.body.parentElement).getPropertyValue("zoom")) || 1;
         const driverObj = driver({ zoom, popoverClass: "custom-driver-popover" });
 
         driverObj.highlight({
@@ -890,6 +909,7 @@ npm install driver.js</pre
       });
 
       document.getElementById("disabled-buttons").addEventListener("click", () => {
+        const zoom = parseFloat(window.getComputedStyle(document.body.parentElement).getPropertyValue("zoom")) || 1;
         const driverObj = driver();
         driverObj.highlight({
           element: "#disabled-buttons",
@@ -903,6 +923,7 @@ npm install driver.js</pre
       });
 
       document.getElementById("button-config-events").addEventListener("click", () => {
+        const zoom = parseFloat(window.getComputedStyle(document.body.parentElement).getPropertyValue("zoom")) || 1;
         const driverObj = driver({
           zoom,
           onNextClick: () => {
@@ -927,6 +948,7 @@ npm install driver.js</pre
       });
 
       document.getElementById("button-tour-events").addEventListener("click", () => {
+        const zoom = parseFloat(window.getComputedStyle(document.body.parentElement).getPropertyValue("zoom")) || 1;
         const driverObj = driver({
           zoom,
           onNextClick: () => {
@@ -951,6 +973,7 @@ npm install driver.js</pre
       });
 
       document.getElementById("popover-hook-config").addEventListener("click", () => {
+        const zoom = parseFloat(window.getComputedStyle(document.body.parentElement).getPropertyValue("zoom")) || 1;
         const driverObj = driver({
           zoom,
           onPopoverRender: popover => {
@@ -959,6 +982,8 @@ npm install driver.js</pre
             popover.footerButtons.appendChild(firstButton);
 
             firstButton.addEventListener("click", () => {
+              const zoom =
+                parseFloat(window.getComputedStyle(document.body.parentElement).getPropertyValue("zoom")) || 1;
               console.log("First Button Clicked");
             });
           },
@@ -973,16 +998,19 @@ npm install driver.js</pre
       });
 
       document.getElementById("is-active-btn").addEventListener("click", () => {
+        const zoom = parseFloat(window.getComputedStyle(document.body.parentElement).getPropertyValue("zoom")) || 1;
         alert(driver().isActive());
       });
 
       document.getElementById("backdrop-color-btn").addEventListener("click", () => {
+        const zoom = parseFloat(window.getComputedStyle(document.body.parentElement).getPropertyValue("zoom")) || 1;
         driver({ zoom, overlayColor: "blue", overlayOpacity: 0.3 }).highlight({
           element: "#backdrop-color-btn",
         });
       });
 
       document.getElementById("activate-check-btn").addEventListener("click", () => {
+        const zoom = parseFloat(window.getComputedStyle(document.body.parentElement).getPropertyValue("zoom")) || 1;
         const driverObj = driver({ zoom, showButtons: false });
 
         driverObj.highlight({
@@ -1005,6 +1033,7 @@ npm install driver.js</pre
       });
 
       document.getElementById("highlight-btn").addEventListener("click", () => {
+        const zoom = parseFloat(window.getComputedStyle(document.body.parentElement).getPropertyValue("zoom")) || 1;
         driver({
           zoom,
           animate: true,
@@ -1035,6 +1064,7 @@ npm install driver.js</pre
         console.log({ zoom });
 
         document.getElementById(id).addEventListener("click", () => {
+          const zoom = parseFloat(window.getComputedStyle(document.body.parentElement).getPropertyValue("zoom")) || 1;
           document.body.parentElement.style.zoom = zoom;
         });
       });
@@ -1052,25 +1082,28 @@ npm install driver.js</pre
         "btn-bottom-start",
         "btn-bottom-center",
         "btn-bottom-end",
-        "btn-undefined-over",
+        "btn-over-undefined",
       ].forEach(id => {
         const side = id.split("-")[1];
         const align = id.split("-")[2];
         document.getElementById(id).addEventListener("click", () => {
-          driver({ zoom, animate: true }).highlight({
+          const zoom = parseFloat(window.getComputedStyle(document.body.parentElement).getPropertyValue("zoom")) || 1;
+          console.log({ side, align });
+          driver({ zoom, animate: true, overlayEnabled: false }).highlight({
             element: "#layer",
+
             popover: {
               title: ` ${side} ${align}`,
               description: `This is the ${side} ${align}`,
-              // align: undefined,
-              // align: align === "undefined" ? undefined : align,
-              side: "over",
+              align: align === "undefined" ? null : align,
+              side: side,
             },
           });
         });
       });
 
       document.getElementById("simple-highlight-btn").addEventListener("click", () => {
+        const zoom = parseFloat(window.getComputedStyle(document.body.parentElement).getPropertyValue("zoom")) || 1;
         driver({ zoom, animate: false }).highlight({
           element: "#large-paragraph-text",
           popover: {
@@ -1084,14 +1117,17 @@ npm install driver.js</pre
       });
 
       document.getElementById("dark-highlight-btn").addEventListener("click", () => {
+        const zoom = parseFloat(window.getComputedStyle(document.body.parentElement).getPropertyValue("zoom")) || 1;
         driver({ zoom, animate: true, overlayOpacity: 0.9 }).highlight({ element: "ul" });
       });
 
       document.getElementById("dim-highlight-btn").addEventListener("click", () => {
+        const zoom = parseFloat(window.getComputedStyle(document.body.parentElement).getPropertyValue("zoom")) || 1;
         driver({ zoom, animate: true, overlayOpacity: 0.2 }).highlight({ element: ".buttons" });
       });
 
       document.getElementById("transition-highlight-btn").addEventListener("click", () => {
+        const zoom = parseFloat(window.getComputedStyle(document.body.parentElement).getPropertyValue("zoom")) || 1;
         const driverObj = driver({
           zoom,
           animate: true,
@@ -1143,6 +1179,7 @@ npm install driver.js</pre
       });
 
       document.getElementById("hooks").addEventListener("click", () => {
+        const zoom = parseFloat(window.getComputedStyle(document.body.parentElement).getPropertyValue("zoom")) || 1;
         const pageHeader = document.getElementById(".page-header");
 
         const driverObj = driver({
@@ -1194,11 +1231,13 @@ npm install driver.js</pre
       });
 
       document.getElementById("scrollable-area-btn").addEventListener("click", () => {
+        const zoom = parseFloat(window.getComputedStyle(document.body.parentElement).getPropertyValue("zoom")) || 1;
         const driverObj = driver({ zoom, animate: true });
         driverObj.highlight({ element: "#scrollable-area" });
       });
 
       document.getElementById("without-element-btn").addEventListener("click", () => {
+        const zoom = parseFloat(window.getComputedStyle(document.body.parentElement).getPropertyValue("zoom")) || 1;
         const driverObj = driver({
           zoom,
           animate: true,
@@ -1225,11 +1264,13 @@ npm install driver.js</pre
       });
 
       document.getElementById("inner-scroll-area-btn").addEventListener("click", () => {
+        const zoom = parseFloat(window.getComputedStyle(document.body.parentElement).getPropertyValue("zoom")) || 1;
         const driverObj = driver({ zoom, animate: true });
         driverObj.highlight({ element: "#third-scroll-paragraph" });
       });
 
       document.getElementById("disallow-close").addEventListener("click", () => {
+        const zoom = parseFloat(window.getComputedStyle(document.body.parentElement).getPropertyValue("zoom")) || 1;
         const driverObj = driver({ zoom, animate: true, allowClose: false });
 
         driverObj.highlight({
@@ -1238,12 +1279,14 @@ npm install driver.js</pre
       });
 
       document.getElementById("click-overlay-to-next").addEventListener("click", () => {
+        const zoom = parseFloat(window.getComputedStyle(document.body.parentElement).getPropertyValue("zoom")) || 1;
         const driverObj = driver({ zoom, animate: true, overlayClickBehavior: "nextStep", steps: basicTourSteps });
 
         driverObj.drive();
       });
 
       document.getElementById("destroy-btn").addEventListener("click", () => {
+        const zoom = parseFloat(window.getComputedStyle(document.body.parentElement).getPropertyValue("zoom")) || 1;
         driver().destroy();
       });
     </script>

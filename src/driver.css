@@ -16,8 +16,8 @@
 
 
 
-.driver-active .driver-active-element,
-.driver-active .driver-active-element *,
+.driver-active:not(.driver-no-overlay) .driver-active-element,
+.driver-active:not(.driver-no-overlay) .driver-active-element *,
 .driver-popover,
 .driver-popover * {
 	pointer-events: auto;
