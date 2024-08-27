@@ -152,6 +152,9 @@ export function renderPopover(element: Element, step: DriveStep) {
   const popoverArrow = popover.arrow;
   popoverArrow.className = "driver-popover-arrow";
 
+  const popoverPointHighlight = popover.pointerHightLight;
+  popoverPointHighlight.className = "driver-popover-point-highlight";
+
   // Reset any custom classes on the popover
   const customPopoverClass = step.popover?.popoverClass || getConfig("popoverClass") || "";
   popoverWrapper.className = `driver-popover ${customPopoverClass}`.trim();
@@ -518,6 +521,7 @@ export function repositionPopover(element: Element, step: DriveStep) {
     renderPopoverArrow(requiredAlignment, popoverRenderedSide, element);
   } else {
     popover.arrow.classList.add("driver-popover-arrow-none");
+    popover.pointerHightLight.classList.add("driver-popover-point-highlight-none");
   }
 }
 
