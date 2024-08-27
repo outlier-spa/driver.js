@@ -2,17 +2,23 @@ import { DriveStep } from "./driver";
 import { AllowedButtons, PopoverDOM } from "./popover";
 import { State } from "./state";
 
-export type DriverHook = (element: Element | undefined, step: DriveStep, opts: { config: Config; state: State }) => void;
+export type DriverHook = (
+  element: Element | undefined,
+  step: DriveStep,
+  opts: { config: Config; state: State }
+) => void;
 
 export type Config = {
   steps?: DriveStep[];
-
+  zoom?: number;
   animate?: boolean;
   overlayColor?: string;
   overlayOpacity?: number;
   smoothScroll?: boolean;
   allowClose?: boolean;
-  overlayClickBehavior?: 'close' | 'nextStep';
+  overlayEnabled?: boolean;
+  allowScroll?: boolean;
+  overlayClickBehavior?: "close" | "nextStep";
   stagePadding?: number;
   stageRadius?: number;
 
@@ -53,9 +59,12 @@ let currentConfig: Config = {};
 
 export function configure(config: Config = {}) {
   currentConfig = {
+    zoom: 1,
     animate: true,
     allowClose: true,
-    overlayClickBehavior: 'close',
+    allowScroll: true,
+    overlayEnabled: true,
+    overlayClickBehavior: "close",
     overlayOpacity: 0.7,
     smoothScroll: false,
     disableActiveInteraction: false,

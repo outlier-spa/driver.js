@@ -27,9 +27,23 @@ function mountDummyElement(): Element {
   return element;
 }
 
-export function highlight(step: DriveStep) {
+export function getStepElement(step: DriveStep): Element | null {
   const { element } = step;
-  let elemObj = typeof element === "string" ? document.querySelector(element) : element;
+
+  if (typeof element === "function") {
+    return element();
+  }
+  if (typeof element === "string") {
+    return document.querySelector(element);
+  }
+
+  return element ?? null;
+}
+
+export function highlight(step: DriveStep) {
+  // const { element } = step;
+  // let elemObj = typeof element === "string" ? document.querySelector(element) : element;
+  let elemObj = getStepElement(step);
 
   // If the element is not found, we mount a 1px div
   // at the center of the screen to highlight and show
@@ -54,7 +68,6 @@ export function refreshActiveHighlight() {
   refreshOverlay();
   repositionPopover(activeHighlight, activeStep);
 }
-
 
 function transferHighlight(toElement: Element, toStep: DriveStep) {
   const duration = 400;
@@ -112,6 +125,7 @@ function transferHighlight(toElement: Element, toStep: DriveStep) {
       return;
     }
 
+    setState("__activeElement", toElement);
     const elapsed = Date.now() - start;
     const timeRemaining = duration - elapsed;
     const isHalfwayThrough = timeRemaining <= duration / 2;
@@ -137,7 +151,7 @@ function transferHighlight(toElement: Element, toStep: DriveStep) {
       setState("__previousStep", fromStep);
       setState("__previousElement", fromElement);
       setState("__activeStep", toStep);
-      setState("__activeElement", toElement);
+      // setState("__activeElement", toElement);
     }
 
     window.requestAnimationFrame(animate);

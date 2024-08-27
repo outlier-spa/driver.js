@@ -50,10 +50,6 @@ export type PopoverDOM = {
   pointerHightLight: HTMLElement;
 };
 
-function getZoomLevel() {
-  return parseFloat(window.getComputedStyle(document.getElementsByTagName("html")[0]).zoom) || 1;
-}
-
 export function hidePopover() {
   const popover = getState("popover");
   if (!popover) {
@@ -275,13 +271,14 @@ function calculateTopForLeftRight(
     popoverArrowDimensions: { width: number; height: number };
   }
 ): number {
+  const zoom = getConfig("zoom") || 1;
   const { elementDimensions, popoverDimensions, popoverPadding, popoverArrowDimensions } = config;
 
   if (alignment === "start") {
     return Math.max(
       Math.min(
-        elementDimensions.top - popoverPadding,
-        window.innerHeight - popoverDimensions!.realHeight - popoverArrowDimensions.width
+        (elementDimensions.top - popoverPadding) / zoom,
+        (window.innerHeight - popoverDimensions!.realHeight) / zoom - popoverArrowDimensions.width
       ),
       popoverArrowDimensions.width
     );
@@ -290,8 +287,8 @@ function calculateTopForLeftRight(
   if (alignment === "end") {
     return Math.max(
       Math.min(
-        elementDimensions.top - popoverDimensions?.realHeight + elementDimensions.height + popoverPadding,
-        window.innerHeight - popoverDimensions?.realHeight - popoverArrowDimensions.width
+        (elementDimensions.top - popoverDimensions?.realHeight + elementDimensions.height + popoverPadding) / zoom,
+        (window.innerHeight - popoverDimensions?.realHeight - popoverArrowDimensions.width) / zoom
       ),
       popoverArrowDimensions.width
     );
@@ -300,8 +297,8 @@ function calculateTopForLeftRight(
   if (alignment === "center") {
     return Math.max(
       Math.min(
-        elementDimensions.top + elementDimensions.height / 2 - popoverDimensions?.realHeight / 2,
-        window.innerHeight - popoverDimensions?.realHeight - popoverArrowDimensions.width
+        (elementDimensions.top + elementDimensions.height / 2 - popoverDimensions?.realHeight / 2) / zoom,
+        (window.innerHeight - popoverDimensions?.realHeight - popoverArrowDimensions.width) / zoom
       ),
       popoverArrowDimensions.width
     );
@@ -320,13 +317,14 @@ function calculateLeftForTopBottom(
     popoverArrowDimensions: { width: number; height: number };
   }
 ): number {
+  const zoom = getConfig("zoom") || 1;
   const { elementDimensions, popoverDimensions, popoverPadding, popoverArrowDimensions } = config;
 
   if (alignment === "start") {
     return Math.max(
       Math.min(
-        elementDimensions.left - popoverPadding,
-        window.innerWidth - popoverDimensions!.realWidth - popoverArrowDimensions.width
+        (elementDimensions.left - popoverPadding) / zoom,
+        (window.innerWidth - popoverDimensions!.realWidth) / zoom - popoverArrowDimensions.width
       ),
       popoverArrowDimensions.width
     );
@@ -335,8 +333,8 @@ function calculateLeftForTopBottom(
   if (alignment === "end") {
     return Math.max(
       Math.min(
-        elementDimensions.left - popoverDimensions?.realWidth + elementDimensions.width + popoverPadding,
-        window.innerWidth - popoverDimensions?.realWidth - popoverArrowDimensions.width
+        (elementDimensions.left - popoverDimensions?.realWidth + elementDimensions.width + popoverPadding) / zoom,
+        (window.innerWidth - popoverDimensions?.realWidth) / zoom - popoverArrowDimensions.width
       ),
       popoverArrowDimensions.width
     );
@@ -345,8 +343,8 @@ function calculateLeftForTopBottom(
   if (alignment === "center") {
     return Math.max(
       Math.min(
-        elementDimensions.left + elementDimensions.width / 2 - popoverDimensions?.realWidth / 2,
-        window.innerWidth - popoverDimensions?.realWidth - popoverArrowDimensions.width
+        (elementDimensions.left + elementDimensions.width / 2 - popoverDimensions?.realWidth / 2) / zoom,
+        (window.innerWidth - popoverDimensions?.realWidth) / zoom - popoverArrowDimensions.width
       ),
       popoverArrowDimensions.width
     );
@@ -385,6 +383,7 @@ export function repositionPopover(element: Element, step: DriveStep) {
     return;
   }
   const { align = "start", side = "left" } = step?.popover || {};
+  const zoom = getConfig("zoom") || 1;
 
   // Configure the popover positioning
   const requiredAlignment: Alignment = align;
@@ -395,16 +394,16 @@ export function repositionPopover(element: Element, step: DriveStep) {
   const popoverArrowDimensions = getPopoverArrowDimensions()!;
   const elementDimensions = gerElementDimensions(element);
 
-  const topValue = elementDimensions.top - popoverDimensions!.height;
+  const topValue = (elementDimensions.top - popoverDimensions!.height) / zoom;
   let isTopOptimal = topValue >= 0;
 
-  const bottomValue = window.innerHeight - (elementDimensions.bottom + popoverDimensions!.height) * getZoomLevel();
+  const bottomValue = (window.innerHeight - (elementDimensions.bottom + popoverDimensions!.height)) / zoom;
   let isBottomOptimal = bottomValue >= 0;
 
-  const leftValue = elementDimensions.left - popoverDimensions!.width;
+  const leftValue = (elementDimensions.left - popoverDimensions!.width) / zoom;
   let isLeftOptimal = leftValue >= 0;
 
-  const rightValue = window.innerWidth - (elementDimensions.right + popoverDimensions!.width) * getZoomLevel();
+  const rightValue = (window.innerWidth - (elementDimensions.right + popoverDimensions!.width)) / zoom;
   let isRightOptimal = rightValue >= 0;
 
   const noneOptimal = !isTopOptimal && !isBottomOptimal && !isLeftOptimal && !isRightOptimal;
@@ -421,15 +420,15 @@ export function repositionPopover(element: Element, step: DriveStep) {
   }
 
   if (requiredSide === "over") {
-    const leftToSet = window.innerWidth / 2 - popoverDimensions!.realWidth / 2;
-    const topToSet = window.innerHeight / 2 - popoverDimensions!.realHeight / 2;
+    const leftToSet = (window.innerWidth / 2 - popoverDimensions!.realWidth / 2) / zoom;
+    const topToSet = (window.innerHeight / 2 - popoverDimensions!.realHeight / 2) / zoom;
 
     popover.wrapper.style.left = `${leftToSet}px`;
     popover.wrapper.style.right = `auto`;
     popover.wrapper.style.top = `${topToSet}px`;
     popover.wrapper.style.bottom = `auto`;
   } else if (noneOptimal) {
-    const leftValue = window.innerWidth / 2 - popoverDimensions?.realWidth! / 2;
+    const leftValue = (window.innerWidth / 2 - popoverDimensions?.realWidth! / 2) / zoom;
     const bottomValue = 10;
 
     popover.wrapper.style.left = `${leftValue}px`;
@@ -449,6 +448,8 @@ export function repositionPopover(element: Element, step: DriveStep) {
       popoverArrowDimensions,
     });
 
+    console.log({ topToSet });
+
     popover.wrapper.style.left = `${leftToSet}px`;
     popover.wrapper.style.top = `${topToSet}px`;
     popover.wrapper.style.bottom = `auto`;
@@ -467,7 +468,7 @@ export function repositionPopover(element: Element, step: DriveStep) {
       popoverArrowDimensions,
     });
 
-    popover.wrapper.style.right = `${rightToSet / getZoomLevel() - 15}px`;
+    popover.wrapper.style.right = `${rightToSet}px`;
     popover.wrapper.style.top = `${topToSet}px`;
     popover.wrapper.style.bottom = `auto`;
     popover.wrapper.style.left = "auto";
@@ -505,7 +506,7 @@ export function repositionPopover(element: Element, step: DriveStep) {
     });
 
     popover.wrapper.style.left = `${leftToSet}px`;
-    popover.wrapper.style.bottom = `${bottomToSet / getZoomLevel()}px`;
+    popover.wrapper.style.bottom = `${bottomToSet}px`;
     popover.wrapper.style.top = `auto`;
     popover.wrapper.style.right = "auto";
 
@@ -517,6 +518,7 @@ export function repositionPopover(element: Element, step: DriveStep) {
   // e.g. if element scrolled out of the screen to the top, the arrow should be rendered
   // pointing to the top. If the element scrolled out of the screen to the bottom,
   // the arrow should be rendered pointing to the bottom.
+  console.log({ noneOptimal: !noneOptimal });
   if (!noneOptimal) {
     renderPopoverArrow(requiredAlignment, popoverRenderedSide, element);
   } else {
