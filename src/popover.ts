@@ -448,8 +448,6 @@ export function repositionPopover(element: Element, step: DriveStep) {
       popoverArrowDimensions,
     });
 
-    console.log({ topToSet });
-
     popover.wrapper.style.left = `${leftToSet}px`;
     popover.wrapper.style.top = `${topToSet}px`;
     popover.wrapper.style.bottom = `auto`;
@@ -518,7 +516,6 @@ export function repositionPopover(element: Element, step: DriveStep) {
   // e.g. if element scrolled out of the screen to the top, the arrow should be rendered
   // pointing to the top. If the element scrolled out of the screen to the bottom,
   // the arrow should be rendered pointing to the bottom.
-  console.log({ noneOptimal: !noneOptimal });
   if (!noneOptimal) {
     renderPopoverArrow(requiredAlignment, popoverRenderedSide, element);
   } else {
