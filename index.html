@@ -1060,12 +1060,11 @@ npm install driver.js</pre
       });
 
       ["btn-zoom-0.9", "btn-zoom-1", "btn-zoom-1.05", "btn-zoom-1.15"].map(id => {
-        const zoom = parseFloat(id.split("-")[2]);
         console.log({ zoom });
 
         document.getElementById(id).addEventListener("click", () => {
-          const zoom = parseFloat(window.getComputedStyle(document.body.parentElement).getPropertyValue("zoom")) || 1;
-          document.body.parentElement.style.zoom = zoom;
+          const zoomValue = parseFloat(id.split("-")[2]);
+          document.body.parentElement.style.zoom = zoomValue;
         });
       });
 
